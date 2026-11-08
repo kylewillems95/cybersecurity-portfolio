@@ -1,0 +1,41 @@
+name: Verify portfolio
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Install pinned package manager
+        run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Check public content
+        run: node tests/check-content.mjs
+      - name: Verify resume source and committed files
+        run: pnpm check:resume
+      - name: Build static site
+        run: pnpm build
+      - name: Check published files
+        run: pnpm check:public

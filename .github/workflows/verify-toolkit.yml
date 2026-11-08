@@ -1,0 +1,45 @@
+name: Verify Linux toolkit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-toolkit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check Bash syntax and lint
+        run: |
+          scripts=(toolkit/host-check.sh toolkit/service-health.sh toolkit/security-audit.sh)
+          for script in "${scripts[@]}"; do
+            bash -n "$script"
+          done
+          shellcheck "${scripts[@]}"
+
+      - name: Smoke test on Ubuntu as the runner user
+        run: |
+          bash toolkit/host-check.sh >/dev/null
+          bash toolkit/service-health.sh systemd-journald.service >/dev/null
+
+          # A baseline deviation is valid on an ephemeral runner. An incomplete check is not.
+          audit_status=0
+          bash toolkit/security-audit.sh >/dev/null || audit_status=$?
+          if (( audit_status != 0 && audit_status != 1 )); then
+            printf 'Security smoke test did not complete (status %d).\n' "$audit_status" >&2
+            exit 1
+          fi
+          printf 'Host, service, and security checks completed on Ubuntu.\n'

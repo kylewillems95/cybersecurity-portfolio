@@ -1,0 +1,121 @@
+.open-tools {
+  width: calc(100% - 48px);
+  max-width: 1560px;
+  margin: 25px auto 0;
+  padding: clamp(16px, 2.4vw, 28px);
+  background: #fffdfa;
+  border: 1px solid #d6dde6;
+  border-top: 2px solid #c7993e;
+  border-radius: 8px;
+}
+
+.open-tools-heading,
+.toolkit-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+
+.open-tools-heading .eyebrow {
+  color: #765619;
+  text-transform: uppercase;
+}
+
+.open-tools h2 {
+  margin-top: 4px;
+  color: #16212e;
+  font: 600 clamp(24px, 3vw, 31px)/1.2 Georgia, serif;
+}
+
+.tools-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #aab7c5;
+  border-radius: 5px;
+  color: #253e58;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tools-profile:hover {
+  background: #edf2f6;
+}
+
+.toolkit {
+  margin-top: 17px;
+  padding-top: 17px;
+  border-top: 1px solid #dce2ea;
+}
+
+.toolkit h3 {
+  color: #16212e;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.toolkit-status {
+  padding: 3px 8px;
+  background: #f3ead7;
+  border-radius: 4px;
+  color: #674710;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.toolkit p {
+  color: #46556a;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.toolkit > p {
+  max-width: 65ch;
+  margin-top: 7px;
+}
+
+.toolkit-scripts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 11px;
+  margin-top: 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.toolkit-scripts li {
+  padding: 14px;
+  background: #f3f6f8;
+  border: 1px solid #dce2ea;
+  border-radius: 6px;
+}
+
+.toolkit-scripts h4 {
+  color: #16212e;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.toolkit-scripts code {
+  display: inline-block;
+  margin: 3px 0 5px;
+  color: #324b66;
+  font: 12px/1.4 ui-monospace, Consolas, monospace;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 850px) {
+  .open-tools { width: calc(100% - 36px); }
+}
+
+@media (max-width: 640px) {
+  .toolkit-scripts { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 550px) {
+  .open-tools { width: calc(100% - 24px); }
+}

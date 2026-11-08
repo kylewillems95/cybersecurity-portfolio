@@ -1,0 +1,5 @@
+*.sh text eol=lf
+
+# The resume manifest verifies the generated HTML and stylesheet byte for byte.
+/public/resume/index.html -text
+/public/resume/resume.css -text

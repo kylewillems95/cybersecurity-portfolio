@@ -26,7 +26,7 @@ export function OpenSourceTools() {
           <p className="eyebrow">Development work</p>
           <h2 id="open-tools-title">Open Source &amp; Tools</h2>
         </div>
-        <a className="tools-profile" href="https://github.com/kylewillems95">GitHub profile <span aria-hidden="true">↗</span></a>
+        <a className="tools-profile" href="https://github.com/kywillz">GitHub profile <span aria-hidden="true">↗</span></a>
       </header>
 
       <div className="toolkit">
